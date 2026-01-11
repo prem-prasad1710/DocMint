@@ -106,7 +106,7 @@ Project Scope:
 {{projectScope}}
 
 2. COMPENSATION
-Client agrees to pay Service Provider ${{paymentAmount}} USD for the Services.
+Client agrees to pay Service Provider $ {{paymentAmount}} USD for the Services.
 Payment Terms: {{paymentTerms}}
 
 3. TERM
