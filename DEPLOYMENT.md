@@ -154,6 +154,28 @@ If you see errors like `ERESOLVE could not resolve` or peer dependency conflicts
    - Commit and push the updated `package-lock.json`
    - The `.npmrc` file with `legacy-peer-deps=true` will handle any remaining conflicts
 
+#### PDFKit/FontKit Build Error (Turbopack)
+
+If you see errors like:
+```
+Export applyDecoratedDescriptor doesn't exist in target module
+```
+
+This is a known compatibility issue between `pdfkit`/`fontkit` and Next.js 16's Turbopack.
+
+**Solution:** The `next.config.ts` is already configured to use webpack instead of Turbopack. If you still see this error:
+
+1. **In Vercel Dashboard:**
+   - Go to your project → Settings → Environment Variables
+   - Add: `NEXT_PRIVATE_SKIP_TURBO=1` (if needed)
+   - Redeploy
+
+2. **Verify the config:**
+   - Make sure `next.config.ts` has `serverExternalPackages: ['pdfkit', 'fontkit']`
+   - This is already configured in the project
+
+3. **Alternative:** If issues persist, you can temporarily disable Turbopack by ensuring webpack is used (already configured)
+
 #### Other Build Errors
 
 - Make sure all dependencies are in `package.json`
