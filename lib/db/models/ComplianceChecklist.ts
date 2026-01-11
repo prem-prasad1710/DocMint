@@ -1,5 +1,5 @@
 import mongoose, { Model, Schema } from 'mongoose';
-import { IComplianceChecklist } from '@/types/document';
+import { IComplianceChecklist, ChecklistItem } from '@/types/document';
 
 const ChecklistItemSchema = new Schema(
   {
@@ -138,12 +138,12 @@ ComplianceChecklistSchema.statics.findActiveChecklist = function (
 
 // Method to get items by category
 ComplianceChecklistSchema.methods.getItemsByCategory = function (category: string) {
-  return this.items.filter((item) => item.category === category);
+  return this.items.filter((item: ChecklistItem) => item.category === category);
 };
 
 // Method to get high priority items
 ComplianceChecklistSchema.methods.getHighPriorityItems = function () {
-  return this.items.filter((item) => item.priority === 'high');
+  return this.items.filter((item: ChecklistItem) => item.priority === 'high');
 };
 
 const ComplianceChecklist: Model<IComplianceChecklist> =
