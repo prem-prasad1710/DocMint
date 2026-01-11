@@ -1,5 +1,14 @@
-import mongoose, { Model, Schema } from 'mongoose';
+import mongoose, { Model, Schema, Document } from 'mongoose';
 import { IUser } from '@/types/user';
+
+// Interface for User document methods
+interface IUserMethods {
+  canSaveDocument(): boolean;
+  resetMonthlyUsage(): void;
+}
+
+// User document type that includes methods
+type UserDocument = IUser & Document & IUserMethods;
 
 const UserSchema = new Schema<IUser>(
   {
@@ -100,7 +109,7 @@ UserSchema.virtual('isPro').get(function () {
 });
 
 // Method to check if user can save documents
-UserSchema.methods.canSaveDocument = function (): boolean {
+UserSchema.methods.canSaveDocument = function (this: UserDocument): boolean {
   if (this.subscriptionTier === 'pro' && this.subscriptionStatus === 'active') {
     return true;
   }
@@ -108,7 +117,7 @@ UserSchema.methods.canSaveDocument = function (): boolean {
 };
 
 // Method to reset monthly usage
-UserSchema.methods.resetMonthlyUsage = function (): void {
+UserSchema.methods.resetMonthlyUsage = function (this: UserDocument): void {
   const now = new Date();
   const lastReset = this.usage.lastResetDate;
   
@@ -124,7 +133,7 @@ UserSchema.methods.resetMonthlyUsage = function (): void {
 };
 
 // Pre-save middleware
-UserSchema.pre('save', function (next) {
+UserSchema.pre('save', function (this: UserDocument, next) {
   // Auto-reset usage if needed
   if (this.isModified('usage.documentsGenerated')) {
     this.resetMonthlyUsage();
