@@ -53,27 +53,27 @@ export function generatePDF(options: GeneratePDFOptions): Promise<Buffer> {
         .fontSize(20)
         .font('Helvetica-Bold')
         .fillColor('#000000')
-        .text(options.title, {
+        .text(options.title, 50, 100, {
           align: 'center',
-          y: 100,
+          width: doc.page.width - 100,
         });
 
       doc.moveDown(2);
 
       // Enhanced Watermark for free users
       if (options.isWatermarked) {
+        doc.save();
         doc
           .fontSize(50)
           .fillColor('#e5e7eb')
           .opacity(0.3)
-          .text('DRAFT - NOT REVIEWED', {
+          .rotate(45, { origin: [doc.page.width / 2, doc.page.height / 2] })
+          .text('DRAFT - NOT REVIEWED', doc.page.width / 2 - 250, doc.page.height / 2, {
             align: 'center',
-            x: doc.page.width / 2,
-            y: doc.page.height / 2,
             width: 500,
-            angle: 45,
           })
           .opacity(1);
+        doc.restore();
       }
 
       // Reset color and position

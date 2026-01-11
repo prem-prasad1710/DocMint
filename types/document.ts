@@ -1,5 +1,5 @@
 export type Country = 'US' | 'India';
-export type DocumentType = 'contract' | 'nda' | 'invoice';
+export type DocumentType = 'contract' | 'nda' | 'invoice' | 'proposal' | 'quotation';
 export type Industry = 'tech' | 'creative' | 'consulting';
 
 export interface IDocumentTemplate {

@@ -530,9 +530,9 @@ DESCRIPTION OF SERVICES:
 {{serviceDescription}}
 
 AMOUNT BREAKDOWN:
-Subtotal: ${{amount}} USD
-Tax ({{taxRate}}%): ${{taxAmount}} USD
-TOTAL DUE: ${{totalAmount}} USD
+Subtotal: $ {{amount}} USD
+Tax ({{taxRate}}%): $ {{taxAmount}} USD
+TOTAL DUE: $ {{totalAmount}} USD
 
 PAYMENT INSTRUCTIONS:
 {{paymentInstructions}}
@@ -677,7 +677,7 @@ PROJECT TIMELINE:
 {{timeline}}
 
 BUDGET:
-Total Project Budget: ${{totalBudget}} USD
+Total Project Budget: $ {{totalBudget}} USD
 
 PAYMENT SCHEDULE:
 {{paymentSchedule}}
@@ -830,11 +830,11 @@ SERVICE QUOTATION:
 
 Description: {{serviceDescription}}
 Quantity: {{quantity}}
-Unit Price: ${{unitPrice}} USD
-Subtotal: ${{subtotal}} USD
-{{#if taxRate}}Tax ({{taxRate}}%): ${{taxAmount}} USD{{/if}}
+Unit Price: $ {{unitPrice}} USD
+Subtotal: $ {{subtotal}} USD
+{{#if taxRate}}Tax ({{taxRate}}%): $ {{taxAmount}} USD{{/if}}
 ─────────────────────────────
-TOTAL: ${{total}} USD
+TOTAL: $ {{total}} USD
 
 NOTES:
 {{notes}}
