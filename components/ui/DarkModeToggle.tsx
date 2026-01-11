@@ -1,14 +1,42 @@
 'use client';
 
 import { useTheme } from '@/components/providers/ThemeProvider';
+import { useState, useEffect } from 'react';
+
+type Theme = 'light' | 'dark' | 'system';
 
 export function DarkModeToggle() {
-  const { resolvedTheme, setTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+  
+  // Safely get theme with fallback
+  let resolvedTheme: 'light' | 'dark' = 'light';
+  let setTheme: (theme: Theme) => void = () => {};
+  
+  try {
+    const themeContext = useTheme();
+    resolvedTheme = themeContext.resolvedTheme;
+    setTheme = themeContext.setTheme;
+  } catch (error) {
+    // ThemeProvider not available (SSR/SSG), use defaults
+    console.warn('DarkModeToggle: ThemeProvider not available');
+  }
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   const isDark = resolvedTheme === 'dark';
 
   const toggleDarkMode = () => {
     setTheme(isDark ? 'light' : 'dark');
   };
+
+  // Don't render during SSR to avoid hydration mismatch
+  if (!mounted) {
+    return (
+      <div className="w-10 h-10 p-2 rounded-lg bg-gray-100 dark:bg-gray-800 animate-pulse" />
+    );
+  }
 
   return (
     <button
