@@ -143,9 +143,23 @@ To update environment variables after deployment:
 
 ### Build Errors
 
+#### Dependency Conflicts (ERESOLVE)
+
+If you see errors like `ERESOLVE could not resolve` or peer dependency conflicts:
+
+1. **The fix is already applied:** The project uses `mongodb@^6.3.0` (compatible with `@auth/mongodb-adapter`)
+2. **If you still see issues:**
+   - Delete `package-lock.json` locally
+   - Run `npm install` to regenerate it
+   - Commit and push the updated `package-lock.json`
+   - The `.npmrc` file with `legacy-peer-deps=true` will handle any remaining conflicts
+
+#### Other Build Errors
+
 - Make sure all dependencies are in `package.json`
 - Check that TypeScript compiles: `npm run build`
 - Review Vercel build logs for specific errors
+- Ensure Node.js version is compatible (project uses Node 20+)
 
 ---
 
