@@ -46,6 +46,9 @@ When you deploy to Vercel (or similar platforms), the server runs from their IP 
    NEXT_PUBLIC_APP_URL=https://your-app.vercel.app
    NODE_ENV=production
    
+   # IMPORTANT: Disable Turbopack to use webpack (fixes pdfkit/fontkit compatibility)
+   NEXT_PRIVATE_SKIP_TURBO=1
+   
    # Optional - Google OAuth
    GOOGLE_CLIENT_ID=your-google-client-id
    GOOGLE_CLIENT_SECRET=your-google-client-secret
@@ -56,6 +59,8 @@ When you deploy to Vercel (or similar platforms), the server runs from their IP 
    STRIPE_WEBHOOK_SECRET=whsec_your_webhook_secret
    STRIPE_PRICE_ID_MONTHLY=price_your_monthly_price_id
    ```
+   
+   **⚠️ Important:** Make sure to add `NEXT_PRIVATE_SKIP_TURBO=1` to force webpack usage and fix pdfkit/fontkit compatibility issues!
 
 6. **Click "Deploy"**
 
@@ -166,9 +171,9 @@ This is a known compatibility issue between `pdfkit`/`fontkit` and Next.js 16's 
 
 **Solution:** The `next.config.ts` is already configured with `experimental.turbo: {}` to disable Turbopack. 
 
-**If you still see this error on Vercel:**
+**If you see this error on Vercel:**
 
-1. **Add Environment Variable in Vercel:**
+1. **Add Environment Variable in Vercel (REQUIRED):**
    - Go to your Vercel project → Settings → Environment Variables
    - Add a new variable:
      - **Name:** `NEXT_PRIVATE_SKIP_TURBO`
@@ -176,18 +181,20 @@ This is a known compatibility issue between `pdfkit`/`fontkit` and Next.js 16's 
    - Make sure it's set for **Production**, **Preview**, and **Development**
    - Click **Save**
    - **Redeploy** your project
+   
+   This environment variable is **required** to disable Turbopack and use webpack instead.
 
 2. **Verify the config:**
    - Make sure `next.config.ts` has:
-     - `experimental.turbo: {}` (disables Turbopack)
      - `serverExternalPackages: ['pdfkit', 'fontkit']` (marks them as external)
-   - Both are already configured in the project
+     - `webpack` configuration (already configured)
+   - The config is already set up correctly in the project
 
-3. **Clear Vercel Build Cache:**
+3. **Clear Vercel Build Cache (if needed):**
    - Go to your deployment → Settings → Clear Build Cache
    - Redeploy
 
-The combination of the config changes + environment variable should force webpack to be used instead of Turbopack.
+**The environment variable `NEXT_PRIVATE_SKIP_TURBO=1` is the key to forcing webpack usage and fixing the build error.**
 
 #### Other Build Errors
 
