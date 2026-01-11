@@ -9,12 +9,12 @@ import { getChecklist } from '@/lib/db/queries';
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { country: string } }
+  { params }: { params: Promise<{ country: string }> }
 ) {
   try {
     await requireAuth();
     
-    const { country } = params;
+    const { country } = await params;
     const { searchParams } = new URL(request.url);
     const industry = searchParams.get('industry') || 'tech';
     
