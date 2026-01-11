@@ -11,6 +11,11 @@ declare module 'next-auth' {
       subscriptionTier: string;
       disclaimerAccepted: boolean;
       stripeCustomerId?: string;
+      usage?: {
+        documentsGenerated: number;
+        documentsSaved: number;
+        lastResetDate: Date;
+      };
     } & DefaultSession['user'];
   }
 
@@ -20,6 +25,11 @@ declare module 'next-auth' {
     disclaimerAccepted?: boolean;
     stripeCustomerId?: string;
     passwordHash?: string;
+    usage?: {
+      documentsGenerated: number;
+      documentsSaved: number;
+      lastResetDate: Date;
+    };
   }
 }
 
@@ -29,5 +39,10 @@ declare module 'next-auth/jwt' {
     subscriptionTier: string;
     disclaimerAccepted: boolean;
     stripeCustomerId?: string;
+    usage?: {
+      documentsGenerated: number;
+      documentsSaved: number;
+      lastResetDate: Date;
+    };
   }
 }

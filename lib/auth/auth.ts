@@ -69,6 +69,11 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             image: user.image,
             subscriptionTier: user.subscriptionTier,
             disclaimerAccepted: user.disclaimerAccepted,
+            usage: user.usage ? {
+              documentsGenerated: user.usage.documentsGenerated || 0,
+              documentsSaved: user.usage.documentsSaved || 0,
+              lastResetDate: user.usage.lastResetDate || new Date(),
+            } : undefined,
           };
         } catch (error) {
           console.error('Auth error:', error);
@@ -118,6 +123,14 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           token.subscriptionTier = dbUser.subscriptionTier;
           token.disclaimerAccepted = dbUser.disclaimerAccepted;
           token.stripeCustomerId = dbUser.stripeCustomerId;
+          // Include usage data
+          if (dbUser.usage) {
+            token.usage = {
+              documentsGenerated: dbUser.usage.documentsGenerated || 0,
+              documentsSaved: dbUser.usage.documentsSaved || 0,
+              lastResetDate: dbUser.usage.lastResetDate || new Date(),
+            };
+          }
         }
       }
       
@@ -136,6 +149,14 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         session.user.subscriptionTier = token.subscriptionTier as string;
         session.user.disclaimerAccepted = token.disclaimerAccepted as boolean;
         session.user.stripeCustomerId = token.stripeCustomerId as string;
+        // Include usage data
+        if (token.usage) {
+          session.user.usage = {
+            documentsGenerated: (token.usage as any).documentsGenerated || 0,
+            documentsSaved: (token.usage as any).documentsSaved || 0,
+            lastResetDate: (token.usage as any).lastResetDate || new Date(),
+          };
+        }
       }
       
       return session;
