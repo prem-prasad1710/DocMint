@@ -16,6 +16,13 @@
   --shadow-elevation: rgba(0, 0, 0, 0.08);
   --glass-background: rgba(255, 255, 255, 0.7);
   --glass-border: rgba(255, 255, 255, 0.18);
+  
+  /* Text Colors - High Contrast */
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --text-tertiary: #64748b;
+  --text-on-dark: #ffffff;
+  --text-on-light: #0f172a;
 }
 
 .dark {
@@ -31,6 +38,13 @@
   --shadow-elevation: rgba(0, 0, 0, 0.3);
   --glass-background: rgba(15, 23, 42, 0.7);
   --glass-border: rgba(255, 255, 255, 0.1);
+  
+  /* Text Colors - High Contrast for Dark Mode */
+  --text-primary: #f8fafc;
+  --text-secondary: #cbd5e1;
+  --text-tertiary: #94a3b8;
+  --text-on-dark: #ffffff;
+  --text-on-light: #0f172a;
 }
 
 html {
@@ -43,9 +57,51 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   line-height: 1.6;
-  color: var(--color-foreground);
+  color: var(--text-primary);
   background: var(--color-background);
   transition: color 0.3s ease, background-color 0.3s ease;
+}
+
+/* Ensure High Contrast Text */
+.text-gray-900 {
+  color: var(--text-primary) !important;
+}
+
+.text-gray-800 {
+  color: var(--text-primary) !important;
+}
+
+.text-gray-700 {
+  color: var(--text-secondary) !important;
+}
+
+.text-gray-600 {
+  color: var(--text-tertiary) !important;
+}
+
+/* Dark mode text fixes */
+.dark .text-white {
+  color: var(--text-on-dark) !important;
+}
+
+.dark .text-slate-900,
+.dark .text-gray-900 {
+  color: var(--text-primary) !important;
+}
+
+.dark .text-slate-800,
+.dark .text-gray-800 {
+  color: var(--text-primary) !important;
+}
+
+.dark .text-slate-700,
+.dark .text-gray-700 {
+  color: var(--text-secondary) !important;
+}
+
+.dark .text-slate-600,
+.dark .text-gray-600 {
+  color: var(--text-tertiary) !important;
 }
 
 /* Modern SaaS Styling */
