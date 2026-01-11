@@ -6,6 +6,9 @@ import { SavedDocumentsList } from '@/components/dashboard/SavedDocumentsList';
 import { AnalyticsCard } from '@/components/dashboard/AnalyticsCard';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
+import { DarkModeToggle } from '@/components/ui/DarkModeToggle';
+import { CostSavingsCalculator } from '@/components/analytics/CostSavingsCalculator';
+import { AdvancedAnalyticsDashboard } from '@/components/analytics/AdvancedAnalyticsDashboard';
 import Link from 'next/link';
 
 export const metadata = {
@@ -45,9 +48,9 @@ export default async function DashboardPage() {
   return (
     <>
       <DisclaimerModal isOpen={!user.disclaimerAccepted} />
-      <div className="min-h-screen bg-gradient-to-br from-gray-50 to-blue-50">
+      <div className="min-h-screen bg-gradient-to-br from-gray-50 to-blue-50 dark:from-gray-900 dark:to-gray-800">
         {/* Header */}
-        <header className="bg-white border-b border-gray-200 shadow-sm">
+        <header className="glass-navbar bg-white/80 dark:bg-gray-900/80 border-b border-gray-200 dark:border-gray-700 shadow-sm backdrop-blur-xl">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex justify-between items-center h-16">
               <div className="flex items-center gap-3">
@@ -63,11 +66,17 @@ export default async function DashboardPage() {
                   </span>
                 )}
               </div>
-              <form action="/api/auth/signout" method="POST">
-                <Button type="submit" variant="ghost" size="sm">
-                  Sign Out
-                </Button>
-              </form>
+              <div className="flex items-center gap-3">
+                <kbd className="hidden md:inline-block px-2 py-1 text-xs font-semibold text-gray-600 dark:text-gray-400 bg-gray-100 dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded">
+                  ⌘K
+                </kbd>
+                <DarkModeToggle />
+                <form action="/api/auth/signout" method="POST">
+                  <Button type="submit" variant="ghost" size="sm">
+                    Sign Out
+                  </Button>
+                </form>
+              </div>
             </div>
           </div>
         </header>
@@ -158,6 +167,14 @@ export default async function DashboardPage() {
             </Card>
           </div>
 
+          {/* Cost Savings Calculator */}
+          <div className="mb-8">
+            <CostSavingsCalculator 
+              documentsGenerated={allDocuments.length}
+              documentsSaved={savedDocuments.length}
+            />
+          </div>
+
           {/* Analytics Section */}
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
             <AnalyticsCard
@@ -186,6 +203,11 @@ export default async function DashboardPage() {
               description={user.subscriptionTier === 'pro' ? 'Pro account' : 'Monthly limit'}
               icon={user.subscriptionTier === 'pro' ? '⭐' : '📊'}
             />
+          </div>
+
+          {/* Advanced Analytics Dashboard */}
+          <div className="mb-8">
+            <AdvancedAnalyticsDashboard documents={allDocuments} />
           </div>
 
           {/* Saved Documents Section */}
