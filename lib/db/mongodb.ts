@@ -113,9 +113,6 @@ async function connectDB(retries = 3): Promise<typeof mongoose> {
     throw e;
   }
   
-  // @ts-expect-error - TypeScript inference issue with mongoose connection caching pattern
-  return cached.conn;
-
   return cached.conn;
 }
 
