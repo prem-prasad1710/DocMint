@@ -159,22 +159,35 @@ If you see errors like `ERESOLVE could not resolve` or peer dependency conflicts
 If you see errors like:
 ```
 Export applyDecoratedDescriptor doesn't exist in target module
+Error: Call retries were exceeded
 ```
 
 This is a known compatibility issue between `pdfkit`/`fontkit` and Next.js 16's Turbopack.
 
-**Solution:** The `next.config.ts` is already configured to use webpack instead of Turbopack. If you still see this error:
+**Solution:** The `next.config.ts` is already configured with `experimental.turbo: {}` to disable Turbopack. 
 
-1. **In Vercel Dashboard:**
-   - Go to your project → Settings → Environment Variables
-   - Add: `NEXT_PRIVATE_SKIP_TURBO=1` (if needed)
-   - Redeploy
+**If you still see this error on Vercel:**
+
+1. **Add Environment Variable in Vercel:**
+   - Go to your Vercel project → Settings → Environment Variables
+   - Add a new variable:
+     - **Name:** `NEXT_PRIVATE_SKIP_TURBO`
+     - **Value:** `1`
+   - Make sure it's set for **Production**, **Preview**, and **Development**
+   - Click **Save**
+   - **Redeploy** your project
 
 2. **Verify the config:**
-   - Make sure `next.config.ts` has `serverExternalPackages: ['pdfkit', 'fontkit']`
-   - This is already configured in the project
+   - Make sure `next.config.ts` has:
+     - `experimental.turbo: {}` (disables Turbopack)
+     - `serverExternalPackages: ['pdfkit', 'fontkit']` (marks them as external)
+   - Both are already configured in the project
 
-3. **Alternative:** If issues persist, you can temporarily disable Turbopack by ensuring webpack is used (already configured)
+3. **Clear Vercel Build Cache:**
+   - Go to your deployment → Settings → Clear Build Cache
+   - Redeploy
+
+The combination of the config changes + environment variable should force webpack to be used instead of Turbopack.
 
 #### Other Build Errors
 

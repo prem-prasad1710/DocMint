@@ -1,6 +1,12 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  // Explicitly disable Turbopack by setting empty config (as suggested by Next.js)
+  // This forces webpack to be used instead, fixing pdfkit/fontkit compatibility
+  experimental: {
+    turbo: {}, // Empty config disables Turbopack
+  },
+  
   // Mark pdfkit and fontkit as external server packages
   // This prevents them from being bundled and avoids Turbopack issues
   serverExternalPackages: ['pdfkit', 'fontkit'],
