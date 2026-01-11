@@ -2,13 +2,16 @@
 
 export function IndustrySelector({ selected, onSelect }: { selected: string | null; onSelect: (industry: string) => void }) {
   const industries = [
-    { value: 'tech', label: 'Technology', icon: '💻' },
-    { value: 'creative', label: 'Creative', icon: '🎨' },
-    { value: 'consulting', label: 'Consulting', icon: '💼' },
+    { value: 'tech', label: 'Technology', icon: '💻', description: 'Software, IT, SaaS' },
+    { value: 'creative', label: 'Creative', icon: '🎨', description: 'Design, Marketing, Media' },
+    { value: 'consulting', label: 'Consulting', icon: '💼', description: 'Business, Strategy' },
+    { value: 'legal', label: 'Legal Services', icon: '⚖️', description: 'Legal, Compliance' },
+    { value: 'finance', label: 'Finance', icon: '💹', description: 'Accounting, Advisory' },
+    { value: 'healthcare', label: 'Healthcare', icon: '🏥', description: 'Medical, Wellness' },
   ];
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
       {industries.map((industry) => (
         <button
           key={industry.value}
@@ -20,7 +23,8 @@ export function IndustrySelector({ selected, onSelect }: { selected: string | nu
           }`}
         >
           <div className="text-6xl mb-4 transform group-hover:scale-110 transition-transform">{industry.icon}</div>
-          <div className="font-bold text-lg text-gray-900">{industry.label}</div>
+          <div className="font-bold text-lg text-gray-900 mb-2">{industry.label}</div>
+          <div className="text-sm text-gray-600">{industry.description}</div>
           {selected === industry.value && (
             <div className="absolute top-4 right-4 w-8 h-8 rounded-full bg-gradient-to-r from-blue-500 to-indigo-600 flex items-center justify-center text-white text-lg">
               ✓

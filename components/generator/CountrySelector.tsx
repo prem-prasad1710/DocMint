@@ -4,10 +4,14 @@ export function CountrySelector({ selected, onSelect }: { selected: string | nul
   const countries = [
     { code: 'US', name: 'United States', flag: '🇺🇸' },
     { code: 'India', name: 'India', flag: '🇮🇳' },
+    { code: 'UK', name: 'United Kingdom', flag: '🇬🇧' },
+    { code: 'Canada', name: 'Canada', flag: '🇨🇦' },
+    { code: 'Australia', name: 'Australia', flag: '🇦🇺' },
+    { code: 'Germany', name: 'Germany', flag: '🇩🇪' },
   ];
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
       {countries.map((country) => (
         <button
           key={country.code}
