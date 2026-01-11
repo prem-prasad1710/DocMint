@@ -186,9 +186,11 @@ This is a known compatibility issue between `pdfkit`/`fontkit` and Next.js 16's 
 
 2. **Verify the config:**
    - Make sure `next.config.ts` has:
+     - `turbopack: {}` (empty config to disable Turbopack)
      - `serverExternalPackages: ['pdfkit', 'fontkit']` (marks them as external)
      - `webpack` configuration (already configured)
-   - The config is already set up correctly in the project
+   - Make sure `package.json` has `--webpack` flag in build script
+   - All are already configured in the project
 
 3. **Clear Vercel Build Cache (if needed):**
    - Go to your deployment → Settings → Clear Build Cache
