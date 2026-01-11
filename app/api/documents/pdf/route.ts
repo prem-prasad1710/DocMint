@@ -38,7 +38,7 @@ export async function GET(request: NextRequest) {
       title: document.documentTitle,
       isWatermarked: document.isWatermarked,
       metadata: {
-        author: user.name,
+        author: user.name || undefined,
         subject: `${document.documentType} - ${document.country}`,
       },
     });
