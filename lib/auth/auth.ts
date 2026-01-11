@@ -66,7 +66,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             id: user._id.toString(),
             email: user.email,
             name: user.name,
-            image: user.image,
+            image: user.image || undefined,
             subscriptionTier: user.subscriptionTier,
             disclaimerAccepted: user.disclaimerAccepted,
             usage: user.usage ? {
@@ -98,7 +98,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
               email: user.email!,
               name: user.name || 'User',
               googleId: account.providerAccountId,
-              image: user.image,
+              image: user.image || undefined,
             });
           }
           
