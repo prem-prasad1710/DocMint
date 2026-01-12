@@ -17,11 +17,6 @@ export const authConfig: NextAuthConfig = {
   
   callbacks: {
     authorized({ auth, request }) {
-      // 🔓 TEMPORARY BYPASS FOR DEVELOPMENT
-      // TODO: Remove this before production!
-      return true; // Allow all routes without authentication
-      
-      /* ORIGINAL CODE - UNCOMMENT AFTER FIXING GOOGLE OAUTH
       const isLoggedIn = !!auth?.user;
       const { pathname } = request.nextUrl;
       
@@ -43,7 +38,6 @@ export const authConfig: NextAuthConfig = {
       }
       
       return true;
-      */
     },
   },
   
